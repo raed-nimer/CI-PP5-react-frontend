@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { Footer, Navbar } from "../components";
 import axios from "axios";
+import { loginUser } from "../redux/reducer/UserSlice";
+import { useDispatch } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+const { login } = useAuth();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -23,7 +28,7 @@ const Login = () => {
     // Add your login logic here (API call etc.)
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_APP_SERVER_URL}/api/accounts/login/`,
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/accounts/login`,
         loginData
       );
 
@@ -31,6 +36,14 @@ const Login = () => {
         localStorage.setItem("accessToken", response.data.access);
         localStorage.setItem("refreshToken", response.data.refresh);
         console.log("Login successful:", response.data);
+
+        dispatch(
+          loginUser({
+            user: response.data.user,
+            token: response.data.access,
+          })
+        );
+        login(response.data.user, response.data.access);
         // Redirect to dashboard or show success message
         navigate("/"); // Uncomment if using react-router for navigation
       }
