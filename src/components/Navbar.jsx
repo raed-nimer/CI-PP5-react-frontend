@@ -1,66 +1,93 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { useAuth } from "../context/AuthContext"; 
 
-const Navbar = () => {
+const MyNavbar = () => {
   const state = useSelector((state) => state.cart);
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-dark py-3 sticky-top">
-      <div className="container">
-        <NavLink className="navbar-brand fw-bold fs-4 px-2 text-white" to="/">
-          {" "}
-          React Ecommerce
-        </NavLink>
-        <button
-          className="navbar-toggler mx-2"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+  const { user, logout } = useAuth(); 
+  const navigate = useNavigate();
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav m-auto my-2 text-center">
-            <li className="nav-item">
-              <NavLink className="nav-link text-white" to="/">
-                Home{" "}
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-white" to="/product">
-                Products
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-white" to="/about">
-                About
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-white" to="/contact">
-                Contact
-              </NavLink>
-            </li>
-          </ul>
-          <div className="buttons text-center">
-            <NavLink to="/login" className="btn btn-outline-warning m-2">
-              <i className="fa fa-sign-in-alt mr-1"></i> Login
-            </NavLink>
-            <NavLink to="/register" className="btn btn-outline-warning m-2">
-              <i className="fa fa-user-plus mr-1"></i> Register
-            </NavLink>
-            <NavLink to="/cart" className="btn btn-outline-warning m-2">
-              <i className="fa fa-cart-shopping mr-1"></i> Cart ({state.length}){" "}
-            </NavLink>
+  const handleLogout = () => {
+    logout();
+    navigate("/login"); 
+  };
+
+  return (
+    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+      <Container>
+        <Navbar.Brand as={NavLink} to="/" className="fw-bold fs-4">
+         Powerhouse
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="main-navbar-nav" />
+        <Navbar.Collapse id="main-navbar-nav">
+          <Nav className="m-auto text-center">
+            <Nav.Link as={NavLink} to="/" className="text-white">
+              Home
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/product" className="text-white">
+              Products
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/about" className="text-white">
+              About
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact" className="text-white">
+              Contact
+            </Nav.Link>
+          </Nav>
+          <div className="text-center">
+            {user ? (
+              <>
+                <Button
+                  as={NavLink}
+                  to="/profile"
+                  variant="outline-info"
+                  className="m-2"
+                >
+                  <i className="fa fa-user-circle me-1"></i> Profile
+                </Button>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline-danger"
+                  className="m-2"
+                >
+                  <i className="fa fa-sign-out-alt me-1"></i> Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  as={NavLink}
+                  to="/login"
+                  variant="outline-warning"
+                  className="m-2"
+                >
+                  <i className="fa fa-sign-in-alt me-1"></i> Login
+                </Button>
+                <Button
+                  as={NavLink}
+                  to="/register"
+                  variant="outline-warning"
+                  className="m-2"
+                >
+                  <i className="fa fa-user-plus me-1"></i> Register
+                </Button>
+              </>
+            )}
+            <Button
+              as={NavLink}
+              to="/cart"
+              variant="outline-warning"
+              className="m-2"
+            >
+              <i className="fa fa-cart-shopping me-1"></i> Cart ({state.length})
+            </Button>
           </div>
-        </div>
-      </div>
-    </nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default MyNavbar;
