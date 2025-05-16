@@ -24,7 +24,7 @@ const Product = () => {
     const getProduct = async () => {
       setLoading(true);
       setLoading2(true);
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/products/${id}`);
       const data = await response.json();
       setProduct(data);
       setLoading(false);
