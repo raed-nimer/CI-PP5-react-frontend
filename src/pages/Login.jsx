@@ -5,6 +5,7 @@ import axios from "axios";
 import { loginUser } from "../redux/reducer/UserSlice";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/AuthContext";
+import '../App.css'
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const { login } = useAuth();
   return (
     <>
       <Navbar />
-      <div className="container my-5 py-4">
+      <div className="container my-5 py-4 min-vh-75">
         <h1 className="text-center text-warning mb-4">Login</h1>
         <div className="row justify-content-center">
           <div className="col-md-6">
