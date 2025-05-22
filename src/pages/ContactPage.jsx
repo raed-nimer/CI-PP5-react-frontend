@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
+import toast, { Toaster } from "react-hot-toast";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
+    subject: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -15,10 +17,39 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    // Add your submission logic here
+
+    try {
+      const response = await fetch(`${baseUrl}/contact/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send contact form");
+      }
+
+      const data = await response.json();
+      console.log("Success:", data);
+
+      toast.success("Contact form submitted successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        description: "",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("There was an error submitting the form.");
+    }
   };
 
   return (
@@ -60,17 +91,32 @@ const ContactPage = () => {
                     required
                   />
                 </div>
+                <div className="mb-3">
+                  <label htmlFor="subject" className="form-label">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    className="form-control"
+                    id="subject"
+                    placeholder="Enter Subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
                 <div className="mb-4">
-                  <label htmlFor="message" className="form-label">
-                    Message
+                  <label htmlFor="description" className="form-label">
+                    Description
                   </label>
                   <textarea
-                    name="message"
+                    name="description"
                     rows={5}
                     className="form-control"
-                    id="message"
-                    placeholder="Enter your message"
-                    value={formData.message}
+                    id="description"
+                    placeholder="Enter description"
+                    value={formData.description}
                     onChange={handleChange}
                     required
                   />
