@@ -10,6 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext"; 
 import PrivateRoute from  "./components/PrivateRoute";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import {
   Home,
   Product,
@@ -23,12 +25,14 @@ import {
   PageNotFound,
 } from "./pages";
 import Profile from "./pages/Profile";
+import { CartProvider } from "./context/CartContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <ScrollToTop>
       <AuthProvider>
+        <CartProvider>
         <Provider store={store}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -60,6 +64,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/product/*" element={<PageNotFound />} />
           </Routes>
         </Provider>
+        </CartProvider>
         </AuthProvider>
       </ScrollToTop>
       <Toaster />
