@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../redux/reducer/UserSlice";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -45,6 +46,8 @@ const Register = () => {
             token: response.data.access,
           })
         );
+
+         toast.success("Registration successful!");
 
         setTimeout(() => {
           navigate("/");
