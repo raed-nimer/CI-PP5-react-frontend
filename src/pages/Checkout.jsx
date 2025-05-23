@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"; // Corrected import
+import { Link } from "react-router"; // Corrected import
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
