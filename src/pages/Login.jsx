@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Footer, Navbar } from "../components";
 import axios from "axios";
 import { loginUser } from "../redux/reducer/UserSlice";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../context/AuthContext";
-import '../App.css'
+import "../App.css";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
-  
-const { login } = useAuth();
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -23,10 +25,38 @@ const { login } = useAuth();
     }));
   };
 
+  // Merge Guest Cart Function
+  const mergeGuestCart = async (token) => {
+    const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+    if (!token || guestCart.length === 0) return;
+
+    for (const item of guestCart) {
+      try {
+        await axios.post(
+          `${import.meta.env.VITE_APP_SERVER_URL}/api/cart/add/`,
+          {
+            product_id: item.product.id,
+            quantity: item.quantity,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } catch (err) {
+        console.error("Error merging guest cart item:", err);
+      }
+    }
+
+    // Clear guest cart after merging
+    localStorage.removeItem("guestCart");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login Data:", loginData);
-    // Add your login logic here (API call etc.)
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/accounts/login`,
@@ -34,30 +64,36 @@ const { login } = useAuth();
       );
 
       if (response.data.status === "success") {
-        localStorage.setItem("accessToken", response.data.access);
-        localStorage.setItem("refreshToken", response.data.refresh);
+        const accessToken = response.data.access;
+        const refreshToken = response.data.refresh;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         console.log("Login successful:", response.data);
 
         dispatch(
           loginUser({
             user: response.data.user,
-            token: response.data.access,
+            token: accessToken,
           })
         );
-        login(response.data.user, response.data.access);
-        // Redirect to dashboard or show success message
-        navigate("/"); // Uncomment if using react-router for navigation
+        login(response.data.user, accessToken);
+
+        // Merge guest cart into logged-in cart
+        await mergeGuestCart(accessToken);
+
+        toast.success("Login successful!");
+        navigate("/"); // Redirect to homepage
       }
     } catch (error) {
       console.error("Login error:", error);
+      toast.error("Login failed. Please check your credentials.");
     }
-    // Reset form after submission
+
     setLoginData({
       email: "",
       password: "",
     });
-    // Redirect to dashboard or show success message
-    // navigate("/dashboard"); // Uncomment if using react-router for navigation
   };
 
   return (
