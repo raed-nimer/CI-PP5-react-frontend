@@ -1,24 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addCart } from "../redux/reducer/CartSlice";
-
+import { useCart } from "../context/CartContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link } from "react-router";
 import toast from "react-hot-toast";
-
+import { addCart } from "../redux/reducer/CartSlice";
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(false);
-  let componentMounted = true;
+   const { fetchCartCount } = useCart();
 
+  let componentMounted = true;
+console.log(filter)
   const dispatch = useDispatch();
 
-  const addProduct = (product) => {
+
+const addProduct = async (product) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    // Guest user: save to localStorage
+    let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+    const existingItemIndex = guestCart.findIndex(item => item.product.id === product.id);
+
+    if (existingItemIndex > -1) {
+      guestCart[existingItemIndex].quantity += 1;
+    } else {
+      guestCart.push({ product, quantity: 1 });
+    }
+
+    localStorage.setItem("guestCart", JSON.stringify(guestCart));
+    toast.success("Item added to cart successfully!");
     dispatch(addCart(product));
-  };
+    return;
+  }
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/cart/add/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        product_id: product.id,
+        quantity: 1,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      toast.error(`Failed to add to cart: ${errorData.error || JSON.stringify(errorData)}`);
+      return;
+    }
+
+    await response.json();
+    toast.success("Item added to cart successfully!");
+    fetchCartCount();
+    dispatch(addCart(product));
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    toast.error("Something went wrong adding to cart.");
+  }
+};
+
+
 
   useEffect(() => {
     const getProducts = async () => {
@@ -37,7 +87,7 @@ const Products = () => {
 
     getProducts();
   }, []);
-
+  
   const Loading = () => {
     return (
       <>
@@ -144,7 +194,7 @@ const Products = () => {
                   <button
                     className="btn btn-warning m-1"
                     onClick={() => {
-                      toast.success("Added to cart");
+                      
                       addProduct(product);
                     }}
                   >
