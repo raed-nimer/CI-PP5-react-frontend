@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
-import { Link } from "react-router"; // Corrected import
-
+import { Link,useLocation } from "react-router-dom"; // Corrected import
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+    const location = useLocation();
+
+  const cartItems = location.state?.cartItems || [];
+  console.log("hh",cartItems)
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     address: "",
-    address2: "",
     country: "",
     state: "",
     zip: "",
@@ -24,14 +29,52 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     }));
   };
+const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  let subtotal = 0;
+  let shipping = 30.0;
 
-    // Add form validation if needed
-    console.log("Form Data Submitted:", formData);
-    alert("Order Placed with Cash on Delivery");
-  };
+  cartItems.forEach((item) => {
+    subtotal += parseFloat(item.product.price) * item.quantity;
+  });
+
+  const totalAmount = subtotal + shipping;
+
+  try {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      toast.error("Please login to place an order.");
+      return;
+    }
+
+    const response = await fetch(`${baseUrl}/api/order/place/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        ...formData,
+        totalAmount: totalAmount.toFixed(2), // Send as string or float
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toast.success("Order placed successfully!");
+      console.log("Order ID:", data.order_id);
+      navigate('/success');
+    } else {
+      toast.error(data.error || "Something went wrong while placing the order.");
+    }
+  } catch (error) {
+    console.error("Error placing order:", error);
+    toast.error("Server error. Please try again later.");
+  }
+};
 
   const EmptyCart = () => (
     <div className="container">
@@ -50,11 +93,13 @@ const Checkout = () => {
     let subtotal = 0;
     let shipping = 30.0;
     let totalItems = 0;
-
-    cart.forEach((item) => {
+   cartItems.forEach((item) => {
+     
       subtotal += parseFloat(item.product.price) * item.quantity;
       totalItems += item.quantity;
     });
+
+
 
     return (
       <div className="container py-5">
@@ -137,17 +182,7 @@ const Checkout = () => {
                       />
                     </div>
 
-                    <div className="col-12 my-1">
-                      <label className="form-label">Address 2</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="address2"
-                        value={formData.address2}
-                        onChange={handleChange}
-                        placeholder="Apartment or suite"
-                      />
-                    </div>
+                   
 
                     <div className="col-md-5 my-1">
                       <label className="form-label">Country</label>
