@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "../context/CartContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -8,86 +8,85 @@ import { Link } from "react-router";
 import toast from "react-hot-toast";
 import { addCart } from "../redux/reducer/CartSlice";
 const Products = () => {
+  const productsState = useSelector((state) => state.products);
+  console.log("productsState:", productsState);
+
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
-  const [loading, setLoading] = useState(false);
-   const { fetchCartCount } = useCart();
+  const { fetchCartCount } = useCart();
+  console.log("data:", data);
+  console.log("filter:", filter);
 
   let componentMounted = true;
-console.log(filter)
+  console.log(filter);
   const dispatch = useDispatch();
 
+  const addProduct = async (product) => {
+    const token = localStorage.getItem("accessToken");
 
-const addProduct = async (product) => {
-  const token = localStorage.getItem("accessToken");
+    if (!token) {
+      // Guest user: save to localStorage
+      let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
 
-  if (!token) {
-    // Guest user: save to localStorage
-    let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      const existingItemIndex = guestCart.findIndex(
+        (item) => item.product.id === product.id
+      );
 
-    const existingItemIndex = guestCart.findIndex(item => item.product.id === product.id);
+      if (existingItemIndex > -1) {
+        guestCart[existingItemIndex].quantity += 1;
+      } else {
+        guestCart.push({ product, quantity: 1 });
+      }
 
-    if (existingItemIndex > -1) {
-      guestCart[existingItemIndex].quantity += 1;
-    } else {
-      guestCart.push({ product, quantity: 1 });
-    }
-
-    localStorage.setItem("guestCart", JSON.stringify(guestCart));
-    toast.success("Item added to cart successfully!");
-    dispatch(addCart(product));
-    return;
-  }
-
-  try {
-    const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/cart/add/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        product_id: product.id,
-        quantity: 1,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      toast.error(`Failed to add to cart: ${errorData.error || JSON.stringify(errorData)}`);
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      toast.success("Item added to guest cart!");
+      dispatch(addCart(product));
       return;
     }
 
-    await response.json();
-    toast.success("Item added to cart successfully!");
-    fetchCartCount();
-    dispatch(addCart(product));
-  } catch (error) {
-    console.error("Error adding to cart:", error);
-    toast.error("Something went wrong adding to cart.");
-  }
-};
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/cart/add/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: product.id,
+            quantity: 1,
+          }),
+        }
+      );
 
-
-
-  useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/products`);
-      if (componentMounted) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
-        setLoading(false);
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(
+          `Failed to add to cart: ${
+            errorData.error || JSON.stringify(errorData)
+          }`
+        );
+        return;
       }
 
-      return () => {
-        componentMounted = false;
-      };
-    };
+      await response.json();
+      toast.success("Item added to cart successfully!");
+      fetchCartCount();
+      dispatch(addCart(product));
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Something went wrong adding to cart.");
+    }
+  };
 
-    getProducts();
-  }, []);
-  
+  useEffect(() => {
+    if (productsState.state === "fulfilled") {
+      setData(productsState.products);
+      setFilter(productsState.products);
+    }
+  }, [productsState.state]);
+
   const Loading = () => {
     return (
       <>
@@ -194,7 +193,6 @@ const addProduct = async (product) => {
                   <button
                     className="btn btn-warning m-1"
                     onClick={() => {
-                      
                       addProduct(product);
                     }}
                   >
@@ -218,7 +216,7 @@ const addProduct = async (product) => {
           </div>
         </div>
         <div className="row justify-content-center">
-          {loading ? <Loading /> : <ShowProducts />}
+          {productsState.loading ? <Loading /> : <ShowProducts />}
         </div>
       </div>
     </>
