@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
 import { useSelector } from "react-redux";
-import { Link,useLocation } from "react-router-dom"; // Corrected import
+import { Link, useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 const Checkout = () => {
