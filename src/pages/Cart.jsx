@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { addCart, delCart } from "../redux/reducer/CartSlice";
 import { useDispatch } from "react-redux";
 
