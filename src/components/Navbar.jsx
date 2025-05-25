@@ -2,13 +2,23 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Button, Navbar, Nav, Container } from "react-bootstrap";
-import { useCart } from "../context/CartContext";
+import { fetchCart } from "../redux/reducer/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const MyNavbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const { cartCount, fetchCartCount } = useCart();
- 
+  const dispatch = useDispatch();
+  const cartCount = useSelector((state) => state.cart.cartCount);
+
+  const isFetched = useSelector((state) => state.cart.isFetched);
+
+  useEffect(() => {
+    if (!isFetched) {
+      dispatch(fetchCart());
+    }
+  }, []);
+
 
   const handleLogout = () => {
     logout();
@@ -17,7 +27,7 @@ const MyNavbar = () => {
 
    useEffect(() => {
     if (user) {
-      fetchCartCount();
+      fetchCart();
     }
   }, [user]);
 
