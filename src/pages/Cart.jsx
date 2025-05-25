@@ -1,140 +1,120 @@
 import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
-import { Link } from "react-router";
-import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 import { addCart, delCart } from "../redux/reducer/CartSlice";
 import { useDispatch } from "react-redux";
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { fetchCartCount } = useCart();
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const token = localStorage.getItem("accessToken");
   const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
 
-
+  // Load guest cart if not logged in
   useEffect(() => {
   const loadGuestCart = () => {
     const token = localStorage.getItem("accessToken");
-    if (!token) {
+
+    if (!token && !localStorage.getItem("guestCartLoaded")) {
       const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
       guestCart.forEach(item => dispatch(addCart(item.product)));
+      localStorage.setItem("guestCartLoaded", "true");
     }
   };
 
   loadGuestCart();
 }, []);
 
-  // Fetch all cart items for the logged-in user
-  const fetchCartItems = async () => {
-    if (!token) {
-      setError("You must be logged in to view your cart");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(`${baseUrl}/api/cart/`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.error || "Failed to fetch cart items.");
+  // Initial fetch for logged-in cart items
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      if (!token) {
+        setError("You must be logged in to view your cart");
         setLoading(false);
         return;
       }
 
-      const cartData = await response.json();
+      try {
+        const response = await fetch(`${baseUrl}/api/cart/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      // Ensure quantity is present (fallback to 1)
-      const itemsWithQty = cartData.map((item) => ({
-        ...item,
-        quantity: item.quantity || 1,
-      }));
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to fetch cart items.");
+        }
 
-      setCartItems(itemsWithQty);
-      itemsWithQty.forEach((item) => dispatch(addCart(item)));
-      fetchCartCount(); 
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching cart items:", err);
-      setError("Something went wrong while fetching cart items.");
-      setLoading(false);
+        const cartData = await response.json();
+        const itemsWithQty = cartData.map((item) => ({
+          ...item,
+          quantity: item.quantity || 1,
+        }));
+
+        setCartItems(itemsWithQty);
+        // itemsWithQty.forEach((item) => dispatch(addCart(item)));
+        // dispatch(fetchCartCount());
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchCartItems();
+  }, [dispatch, token, baseUrl]);
+
+  const addItem = async (cartItem) => {
+    try {
+      const response = await fetch(`${baseUrl}/api/cart/add/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product_id: cartItem.product.id }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to add item");
+      }
+
+      const updatedItem = await response.json();
+
+      setCartItems((prev) =>
+        prev.some((item) => item.id === updatedItem.id)
+          ? prev.map((item) =>
+              item.id === updatedItem.id ? updatedItem : item
+            )
+          : [...prev, updatedItem]
+      );
+
+      dispatch(addCart(updatedItem));
+      // dispatch(fetchCartCount());
+    } catch (error) {
+      console.error("Error adding item:", error);
     }
   };
 
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
-
-  
-  // Add an item or increment quantity in the cart
-  const addItem = async (cartItem) => {
-     console.log("Adding product:", cartItem.product); // debug
-  try {
-    const response = await fetch(`${baseUrl}/api/cart/add/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ product_id: cartItem.product.id }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Backend error:", errorData);
-      throw new Error(errorData.error || "Failed to add item");
-    }
-
-    const updatedItem = await response.json();
-
-    setCartItems((prev) => {
-      const exists = prev.find((item) => item.id === updatedItem.id);
-      if (exists) {
-        return prev.map((item) =>
-          item.id === updatedItem.id ? updatedItem : item
-        );
-      } else {
-        return [...prev, updatedItem];
-      }
-    });
-     dispatch(addCart(updatedItem));
-    fetchCartCount();
-  } catch (error) {
-    console.error("Error adding item to cart:", error);
-  }
-};
-
-  // Remove or decrement quantity of an item in the cart
   const removeItem = async (cartItem) => {
     try {
       if (cartItem.quantity === 1) {
-        // Delete cart item
-        const response = await fetch(
-          `${baseUrl}/api/cart/delete/${cartItem.id}/`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        // Delete item
+        await fetch(`${baseUrl}/api/cart/delete/${cartItem.id}/`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setCartItems((prev) =>
+          prev.filter((item) => item.id !== cartItem.id)
         );
-
-        if (!response.ok) throw new Error("Failed to remove item");
-
-        setCartItems((prev) => prev.filter((item) => item.id !== cartItem.id));
-         dispatch(delCart(cartItem.id)); 
-        fetchCartCount();
+        dispatch(delCart(cartItem.id));
+        // dispatch(fetchCartCount());
       } else {
-        // Update cart item quantity
+        // Update quantity
         const response = await fetch(
           `${baseUrl}/api/cart/update/${cartItem.id}/`,
           {
@@ -147,18 +127,14 @@ const Cart = () => {
           }
         );
 
-        if (!response.ok) throw new Error("Failed to update item quantity");
-
         const updatedItem = await response.json();
-
         setCartItems((prev) =>
           prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
         );
-
-         dispatch(addCart(updatedItem));
+        dispatch(delCart(cartItem.id));
       }
     } catch (error) {
-      console.error("Error removing item from cart:", error);
+      console.error("Error removing item:", error);
     }
   };
 
@@ -177,12 +153,10 @@ const Cart = () => {
     let totalItems = 0;
 
     cartItems.forEach((item) => {
-       console.log("img",item.product.image);
       subtotal += parseFloat(item.product.price) * item.quantity;
       totalItems += item.quantity;
     });
 
-   
     return (
       <section className="h-100 gradient-custom">
         <div className="container py-5">
@@ -198,7 +172,7 @@ const Cart = () => {
                       <div className="row d-flex align-items-center">
                         <div className="col-lg-3 col-md-12">
                           <img
-                            src={`${item.product.image}`}
+                            src={item.product.image}
                             alt={item.product.name}
                             width={100}
                             height={75}
@@ -221,9 +195,7 @@ const Cart = () => {
                             >
                               <i className="fa-solid fa-minus"></i>
                             </button>
-
                             <p className="mx-5">{item.quantity}</p>
-
                             <button
                               className="btn px-3"
                               onClick={() => addItem(item)}
@@ -231,10 +203,9 @@ const Cart = () => {
                               <i className="fa-solid fa-plus"></i>
                             </button>
                           </div>
-
                           <p className="text-start text-md-center">
                             <strong>
-                              <span className="text-muted">{item.quantity}</span> x ${item.product.price}
+                              {item.quantity} x ${item.product.price}
                             </strong>
                           </p>
                         </div>
@@ -253,27 +224,23 @@ const Cart = () => {
                 </div>
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                    <li className="list-group-item d-flex justify-content-between">
                       Products ({totalItems})
                       <span>${subtotal.toFixed(2)}</span>
                     </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                    <li className="list-group-item d-flex justify-content-between">
                       Shipping
                       <span>${shipping.toFixed(2)}</span>
                     </li>
-                    <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                      <div>
-                        <strong>Total amount</strong>
-                      </div>
-                      <span>
-                        <strong>${(subtotal + shipping).toFixed(2)}</strong>
-                      </span>
+                    <li className="list-group-item d-flex justify-content-between">
+                      <strong>Total</strong>
+                      <strong>${(subtotal + shipping).toFixed(2)}</strong>
                     </li>
                   </ul>
 
                   <Link
                     to="/checkout"
-                    className="btn btn-warning btn-lg btn-block"
+                    className="btn btn-warning btn-lg btn-block mt-3"
                   >
                     Go to checkout
                   </Link>
