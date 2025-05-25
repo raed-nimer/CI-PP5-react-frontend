@@ -11,7 +11,7 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import { CartProvider } from "./context/CartContext";
+// import { CartProvider } from "./context/CartContext";
 import App from "./App";
 
 createRoot(document.getElementById("root")).render(
@@ -19,11 +19,11 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <ScrollToTop>
         <AuthProvider>
-          <CartProvider>
+          {/* <CartProvider> */}
             <Provider store={store}>
               <App />
             </Provider>
-          </CartProvider>
+          {/* </CartProvider> */}
         </AuthProvider>
       </ScrollToTop>
       <Toaster />
