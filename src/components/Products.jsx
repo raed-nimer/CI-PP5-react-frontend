@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useCart } from "../context/CartContext";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link } from "react-router";
 import toast from "react-hot-toast";
-import { addCart } from "../redux/reducer/CartSlice";
+import { addCart, fetchCart } from "../redux/reducer/CartSlice";
 const Products = () => {
   const productsState = useSelector((state) => state.products);
   console.log("productsState:", productsState);
 
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
-  const { fetchCartCount } = useCart();
+  const dispatch = useDispatch();
   console.log("data:", data);
   console.log("filter:", filter);
 
   let componentMounted = true;
   console.log(filter);
-  const dispatch = useDispatch();
 
   const addProduct = async (product) => {
     const token = localStorage.getItem("accessToken");
@@ -72,7 +70,7 @@ const Products = () => {
 
       await response.json();
       toast.success("Item added to cart successfully!");
-      fetchCartCount();
+      fetchCart();
       dispatch(addCart(product));
     } catch (error) {
       console.error("Error adding to cart:", error);
