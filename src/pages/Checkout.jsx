@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Footer, Navbar } from "../components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { resetCart } from "../redux/reducer/CartSlice";
 const Checkout = () => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
   const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
   const cartItems = location.state?.cartItems || [];
   console.log("hh",cartItems)
@@ -35,7 +37,7 @@ const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
   let subtotal = 0;
   let shipping = 30.0;
 
-  cartItems.forEach((item) => {
+  cart.forEach((item) => {
     subtotal += parseFloat(item.product.price) * item.quantity;
   });
 
@@ -64,6 +66,7 @@ const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
 
     if (response.ok) {
       toast.success("Order placed successfully!");
+      dispatch(dispatch(resetCart()));
       console.log("Order ID:", data.order_id);
       navigate('/success');
     } else {
@@ -92,7 +95,7 @@ const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
     let subtotal = 0;
     let shipping = 30.0;
     let totalItems = 0;
-   cartItems.forEach((item) => {
+   cart.forEach((item) => {
      
       subtotal += parseFloat(item.product.price) * item.quantity;
       totalItems += item.quantity;
