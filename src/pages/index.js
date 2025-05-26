@@ -10,3 +10,4 @@ export { default as Checkout } from "./Checkout";
 export { default as PageNotFound } from "./PageNotFound";
 export { default as Profile } from "./Profile";
 export { default as OrderPlace } from "./OrderPlace";
+export { default as MyOrders } from "./MyOrders";
