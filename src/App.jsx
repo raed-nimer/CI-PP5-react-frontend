@@ -16,6 +16,7 @@ import {
   PageNotFound,
   Profile,
   OrderPlace,
+  MyOrders
 } from "./pages";
 
 import { PrivateRoute } from "./components";
@@ -64,8 +65,6 @@ function App() {
       }
     };
 
-    
-
     if (productsState.state === "idle") {
       getProducts();
       getCartItem();
@@ -81,6 +80,7 @@ function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/my-orders" element={<MyOrdersPage/>} />
       <Route path="/register" element={<Register />} />
       <Route
         path="/checkout"
