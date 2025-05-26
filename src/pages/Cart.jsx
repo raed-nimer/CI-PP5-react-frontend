@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Footer, Navbar } from "../components";
 import { Link } from "react-router";
 import { addCart, delCart } from "../redux/reducer/CartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("accessToken");
@@ -15,56 +13,18 @@ const Cart = () => {
 
   // Load guest cart if not logged in
   useEffect(() => {
-  const loadGuestCart = () => {
-    const token = localStorage.getItem("accessToken");
+    const loadGuestCart = () => {
+      const token = localStorage.getItem("accessToken");
 
-    if (!token && !localStorage.getItem("guestCartLoaded")) {
-      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-      guestCart.forEach(item => dispatch(addCart(item.product)));
-      localStorage.setItem("guestCartLoaded", "true");
-    }
-  };
-
-  loadGuestCart();
-}, []);
-
-  // Initial fetch for logged-in cart items
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      if (!token) {
-        setError("You must be logged in to view your cart");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await fetch(`${baseUrl}/api/cart/`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Failed to fetch cart items.");
-        }
-
-        const cartData = await response.json();
-        const itemsWithQty = cartData.map((item) => ({
-          ...item,
-          quantity: item.quantity || 1,
-        }));
-
-        setCartItems(itemsWithQty);
-        // itemsWithQty.forEach((item) => dispatch(addCart(item)));
-        // dispatch(fetchCartCount());
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
+      if (!token && !localStorage.getItem("guestCartLoaded")) {
+        const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+        guestCart.forEach((item) => dispatch(addCart(item.product)));
+        localStorage.setItem("guestCartLoaded", "true");
       }
     };
 
-    fetchCartItems();
-  }, [dispatch, token, baseUrl]);
+    loadGuestCart();
+  }, []);
 
   const addItem = async (cartItem) => {
     try {
@@ -84,14 +44,6 @@ const Cart = () => {
 
       const updatedItem = await response.json();
 
-      setCartItems((prev) =>
-        prev.some((item) => item.id === updatedItem.id)
-          ? prev.map((item) =>
-              item.id === updatedItem.id ? updatedItem : item
-            )
-          : [...prev, updatedItem]
-      );
-
       dispatch(addCart(updatedItem));
       // dispatch(fetchCartCount());
     } catch (error) {
@@ -107,10 +59,6 @@ const Cart = () => {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        setCartItems((prev) =>
-          prev.filter((item) => item.id !== cartItem.id)
-        );
         dispatch(delCart(cartItem.id));
         // dispatch(fetchCartCount());
       } else {
@@ -125,11 +73,6 @@ const Cart = () => {
             },
             body: JSON.stringify({ quantity: cartItem.quantity - 1 }),
           }
-        );
-
-        const updatedItem = await response.json();
-        setCartItems((prev) =>
-          prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
         );
         dispatch(delCart(cartItem.id));
       }
@@ -153,9 +96,11 @@ const Cart = () => {
     let totalItems = 0;
 
     cartItems.forEach((item) => {
-      subtotal += parseFloat(item.product.price) * item.quantity;
+      subtotal += parseFloat(item?.product?.price) * item.quantity;
       totalItems += item.quantity;
     });
+
+    console.log("object", cartItems);
 
     return (
       <section className="h-100 gradient-custom">
@@ -172,8 +117,8 @@ const Cart = () => {
                       <div className="row d-flex align-items-center">
                         <div className="col-lg-3 col-md-12">
                           <img
-                            src={item.product.image}
-                            alt={item.product.name}
+                            src={item.product?.image}
+                            alt={item.product?.name}
                             width={100}
                             height={75}
                             className="rounded"
@@ -181,7 +126,7 @@ const Cart = () => {
                         </div>
                         <div className="col-lg-5 col-md-6">
                           <p>
-                            <strong>{item.product.name}</strong>
+                            <strong>{item.product?.name}</strong>
                           </p>
                         </div>
                         <div className="col-lg-4 col-md-6">
@@ -205,7 +150,7 @@ const Cart = () => {
                           </div>
                           <p className="text-start text-md-center">
                             <strong>
-                              {item.quantity} x ${item.product.price}
+                              {item?.quantity} x ${item.product?.price}
                             </strong>
                           </p>
                         </div>
@@ -225,8 +170,7 @@ const Cart = () => {
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
-                      Products ({totalItems})
-                      <span>${subtotal.toFixed(2)}</span>
+                      Products ({totalItems})<span>${subtotal.toFixed(2)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between">
                       Shipping
@@ -252,6 +196,7 @@ const Cart = () => {
       </section>
     );
   };
+  console.log("dvrvt", cartItems);
 
   return (
     <>
@@ -259,15 +204,7 @@ const Cart = () => {
       <div className="container my-3 py-3">
         <h1 className="text-center text-warning">Cart</h1>
         <hr />
-        {loading ? (
-          <h5 className="text-center">Loading...</h5>
-        ) : error ? (
-          <p className="text-danger text-center">{error}</p>
-        ) : cartItems.length > 0 ? (
-          <ShowCart />
-        ) : (
-          <EmptyCart />
-        )}
+        {cartItems?.length > 0 ? <ShowCart /> : <EmptyCart />}
       </div>
       <Footer />
     </>
