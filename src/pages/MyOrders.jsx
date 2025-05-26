@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar, Footer } from "../components";
 import toast from "react-hot-toast";
 
-const MyOrdersPage = () => {
+const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -99,4 +99,4 @@ const MyOrdersPage = () => {
   );
 };
 
-export default MyOrdersPage;
+export default MyOrders;
