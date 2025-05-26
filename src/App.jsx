@@ -20,9 +20,11 @@ import {
 
 import { PrivateRoute } from "./components";
 import { useEffect } from "react";
+import { fetchCart, setCart } from "./redux/reducer/CartSlice";
 
 function App() {
   const productsState = useSelector((state) => state.products);
+  const cartState = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,8 +45,30 @@ function App() {
       }
     };
 
+    const getCartItem = async () => {
+      console.log("API Call in APP to fetch Products");
+
+      try {
+        const res = await dispatch(fetchCart()).unwrap();
+        console.log("cart fetched:", res);
+
+        if (!res.ok) throw new Error("Failed to fetch cart");
+
+        const cartItems = await res.json();
+        const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+
+        dispatch(setCart({ cartItems, totalQuantity }));
+        console.log("Cart fetched:", cartItems);
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    };
+
+    
+
     if (productsState.state === "idle") {
       getProducts();
+      getCartItem();
     }
   }, [dispatch]);
 
