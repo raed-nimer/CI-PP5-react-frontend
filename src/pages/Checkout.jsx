@@ -183,35 +183,28 @@ const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
                         required
                       />
                     </div>
-
-                   
-
-                    <div className="col-md-5 my-1">
+                  <div className="col-md-5 my-1">
                       <label className="form-label">Country</label>
-                      <select
-                        className="form-select"
+                      <input
+                        type="text"
+                        className="form-control"
                         name="country"
                         value={formData.country}
                         onChange={handleChange}
                         required
-                      >
-                        <option value="">Choose...</option>
-                        <option value="India">India</option>
-                      </select>
+                      />
                     </div>
 
                     <div className="col-md-4 my-1">
                       <label className="form-label">State</label>
-                      <select
-                        className="form-select"
+                      <input
+                        type="text"
+                        className="form-control"
                         name="state"
                         value={formData.state}
                         onChange={handleChange}
                         required
-                      >
-                        <option value="">Choose...</option>
-                        <option value="Punjab">Punjab</option>
-                      </select>
+                      />
                     </div>
 
                     <div className="col-md-3 my-1">
