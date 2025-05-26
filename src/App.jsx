@@ -80,7 +80,7 @@ function App() {
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/my-orders" element={<MyOrdersPage/>} />
+      <Route path="/my-orders" element={<MyOrders/>} />
       <Route path="/register" element={<Register />} />
       <Route
         path="/checkout"
