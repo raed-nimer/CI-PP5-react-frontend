@@ -1,4 +1,3 @@
-// src/redux/slices/CartSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Thunk to fetch cart count from server
@@ -13,7 +12,7 @@ export const fetchCart = createAsyncThunk(
 
     try {
       const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/cart`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization:` Bearer ${token} `},
       });
 
       if (!response.ok) throw new Error("Fetch failed");
@@ -51,17 +50,31 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+     setCart: (state, action) => {
+      const { cartItems, totalQuantity } = action.payload;
+      state.items = cartItems;
+      state.cartCount = totalQuantity;
+      state.isFetched = true;
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      localStorage.setItem("cartCount", totalQuantity);
+    },
     addCart: (state, action) => {
       const product = action.payload;
+      const cartItemId = product.id;
       const exist = state.items.find((x) => x.id === product.id);
 
       if (exist) {
         exist.quantity += 1;
       } else {
-        state.items.push({ ...product, quantity: 1 });
+         state.items.push({
+          id: cartItemId,
+          product: product,
+          quantity: 1,
+        });
       }
 
       state.cartCount += 1;
+      console.log('state',state.items);
       localStorage.setItem("cart", JSON.stringify(state.items));
       localStorage.setItem("cartCount", state.cartCount);
     },
@@ -105,5 +118,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addCart, delCart, resetCart } = cartSlice.actions;
+export const {setCart, addCart, delCart, resetCart } = cartSlice.actions;
 export default cartSlice.reducer;
