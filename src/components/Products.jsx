@@ -12,12 +12,12 @@ const Products = () => {
 
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
-  const dispatch = useDispatch();
+  const [category, setCategory] = useState([]);
   console.log("data:", data);
   console.log("filter:", filter);
 
-  let componentMounted = true;
   console.log(filter);
+  const dispatch = useDispatch();
 
   const addProduct = async (product) => {
     const token = localStorage.getItem("accessToken");
@@ -70,6 +70,7 @@ const Products = () => {
 
       await response.json();
       toast.success("Item added to cart successfully!");
+      // fetchCartCount();
       dispatch(addCart(product));
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -81,6 +82,7 @@ const Products = () => {
     if (productsState.state === "fulfilled") {
       setData(productsState.products);
       setFilter(productsState.products);
+      setCategory(productsState.category);
     }
   }, [productsState.state]);
 
@@ -127,30 +129,17 @@ const Products = () => {
           >
             All
           </button>
-          <button
-            className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("men's clothing")}
-          >
-            Men's Clothing
-          </button>
-          <button
-            className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("women's clothing")}
-          >
-            Women's Clothing
-          </button>
-          <button
-            className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("jewelery")}
-          >
-            Jewelery
-          </button>
-          <button
-            className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("electronics")}
-          >
-            Electronics
-          </button>
+          {
+              category?.map((category) => (
+               <button
+                  key={category.id}
+                  className="btn btn-outline-dark btn-sm m-2"
+                  onClick={() => filterProduct(category.name)}
+                >
+                  {category.name}
+                </button>
+            ))
+          }
         </div>
 
         {filter.map((product) => {
