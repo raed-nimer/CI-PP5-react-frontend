@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const initialState = {
   products: [],
+  category: [],
   loading: false,
   state: "idle",
 };
@@ -17,10 +18,25 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductsCategory = createAsyncThunk(
+  "products/fetchProductsCategory",
+  async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_SERVER_URL}/api/products/categories/`
+    );
+    console.log('category', response.data);
+    return response.data;
+  }
+);
+
 const ProductsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -39,6 +55,6 @@ const ProductsSlice = createSlice({
   },
 });
 
-export const {} = ProductsSlice.actions;
+export const { setCategory } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;
