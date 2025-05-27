@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { Routes, Route } from "react-router";
-import { fetchProducts } from "./redux/reducer/ProductsSlice";
+import { fetchProducts, fetchProductsCategory, setCategory } from "./redux/reducer/ProductsSlice";
 import {
   Home,
   Product,
@@ -46,30 +46,33 @@ function App() {
       }
     };
 
-    const getCartItem = async () => {
+    if (productsState.state === "idle") {
+      getProducts();
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const getCategory = async () => {
       console.log("API Call in APP to fetch Products");
 
       try {
-        const res = await dispatch(fetchCart()).unwrap();
-        console.log("cart fetched:", res);
+        const res = await dispatch(fetchProductsCategory()).unwrap();
+        console.log("Productsss fetched:", res);
 
-        if (!res.ok) throw new Error("Failed to fetch cart");
-
-        const cartItems = await res.json();
-        const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
-
-        dispatch(setCart({ cartItems, totalQuantity }));
-        console.log("Cart fetched:", cartItems);
+        if (res) {
+          console.log("Products fetched successfully:", res);
+          dispatch(setCategory(res));
+        } else {
+          console.error("No products found in the response");
+        }
       } catch (error) {
-        console.error("Error fetching cart:", error);
+        console.error("Error fetching products:", error);
       }
     };
-
-    if (productsState.state === "idle") {
-      getProducts();
-      getCartItem();
+    if (productsState.category.length === 0) {
+      getCategory();
     }
-  }, [dispatch]);
+  },[dispatch]);
 
   return (
     <Routes>
