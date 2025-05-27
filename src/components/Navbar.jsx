@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import { Button, Navbar, Nav, Container } from "react-bootstrap";
+import {
+  Button,
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+} from "react-bootstrap";
+
 import { useSelector } from "react-redux";
 
 const MyNavbar = () => {
@@ -31,24 +38,44 @@ const MyNavbar = () => {
           </Nav>
           <div className="text-center">
             {user ? (
-              <>
-                <Button as={NavLink} to="/profile" variant="outline-info" className="m-2">
-                  <i className="fa fa-user-circle me-1"></i> Profile
-                </Button>
-                <Button onClick={handleLogout} variant="outline-danger" className="m-2">
-                  <i className="fa fa-sign-out-alt me-1"></i> Logout
-                </Button>
-              </>
+              <NavDropdown
+                title={<span className="text-white">{user.first_name || "Account"}</span>}
+                id="user-dropdown"
+                align="end"
+                className="ms-2"
+              >
+                <NavDropdown.Item as={NavLink} to="/profile">
+                  <i className="fa fa-user-circle me-2"></i> Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/my-orders">
+                  <i className="fa fa-box me-2"></i> My Orders
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>
+                  <i className="fa fa-sign-out-alt me-2"></i> Logout
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <>
-                <Button as={NavLink} to="/login" variant="outline-warning" className="m-2">
+                <Button
+                  as={NavLink}
+                  to="/login"
+                  variant="outline-warning"
+                  className="m-2"
+                >
                   <i className="fa fa-sign-in-alt me-1"></i> Login
                 </Button>
-                <Button as={NavLink} to="/register" variant="outline-warning" className="m-2">
+                <Button
+                  as={NavLink}
+                  to="/register"
+                  variant="outline-warning"
+                  className="m-2"
+                >
                   <i className="fa fa-user-plus me-1"></i> Register
                 </Button>
               </>
             )}
+
             <Button as={NavLink} to="/cart" variant="outline-warning" className="m-2">
               <i className="fa fa-cart-shopping me-1"></i> Cart ({cartCount})
             </Button>
