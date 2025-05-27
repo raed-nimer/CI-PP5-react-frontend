@@ -9,15 +9,18 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from "../redux/reducer/UserSlice";
 
 const MyNavbar = () => {
+  const dispatch = useDispatch();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const cartCount = useSelector((state) => state.cart.cartCount);
 
 
   const handleLogout = () => {
+    dispatch(resetUser());
     logout();
     navigate("/login");
   };
