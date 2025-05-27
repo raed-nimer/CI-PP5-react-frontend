@@ -1,3 +1,7 @@
 .min-vh-75 {
   min-height: 75vh;
 }
+
+.navbar-dark .dropdown-toggle::after {
+  color: white !important;
+}
