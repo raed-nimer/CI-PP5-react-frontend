@@ -28,6 +28,7 @@ const Cart = () => {
 
   const addItem = async (cartItem) => {
     try {
+      if(token){
       const response = await fetch(`${baseUrl}/api/cart/add/`, {
         method: "POST",
         headers: {
@@ -45,6 +46,22 @@ const Cart = () => {
       const updatedItem = await response.json();
 
       dispatch(addCart(updatedItem));
+    }else{
+      const guestCart = JSON.parse(localStorage.getItem("guest_cart") || "[]");
+
+      const existingIndex = guestCart.findIndex(
+        (item) => item.product.id === cartItem.product.id
+      );
+
+      if (existingIndex > -1) {
+        guestCart[existingIndex].quantity += 1;
+      } else {
+        guestCart.push({ ...cartItem, quantity: 1 });
+      }
+
+      localStorage.setItem("guest_cart", JSON.stringify(guestCart));
+       dispatch(addCart(cartItem));
+    }
       // dispatch(fetchCartCount());
     } catch (error) {
       console.error("Error adding item:", error);
@@ -55,14 +72,17 @@ const Cart = () => {
     try {
       if (cartItem.quantity === 1) {
         // Delete item
+        if(token){
         await fetch(`${baseUrl}/api/cart/delete/${cartItem.id}/`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
+      }
         dispatch(delCart(cartItem.id));
         // dispatch(fetchCartCount());
       } else {
         // Update quantity
+        if(token){
         const response = await fetch(
           `${baseUrl}/api/cart/update/${cartItem.id}/`,
           {
@@ -74,6 +94,7 @@ const Cart = () => {
             body: JSON.stringify({ quantity: cartItem.quantity - 1 }),
           }
         );
+      }
         dispatch(delCart(cartItem.id));
       }
     } catch (error) {
