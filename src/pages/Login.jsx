@@ -71,12 +71,7 @@ const Login = () => {
         localStorage.setItem("refreshToken", refreshToken);
         console.log("Login successful:", response.data);
 
-        dispatch(
-          loginUser({
-            user: response.data.user,
-            token: accessToken,
-          })
-        );
+        dispatch(loginUser(response.data.user));
         login(response.data.user, accessToken);
 
         // Merge guest cart into logged-in cart
