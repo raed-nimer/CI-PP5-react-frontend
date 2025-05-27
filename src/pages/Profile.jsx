@@ -13,7 +13,7 @@ const Profile = () => {
 
   const [loading, setLoading] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
-
+  const accountsData = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -35,8 +35,16 @@ const Profile = () => {
         setLoading(false);
       }
     };
-
-    fetchProfile();
+    if (!accountsData){
+      fetchProfile();
+    }else{
+      setProfileData({
+        first_name: accountsData.first_name,
+        last_name: accountsData.last_name,
+        email: accountsData.email,
+      });
+      setLoading(false);
+    }
   }, [accessToken]);
 
   const handleChange = (e) => {
