@@ -36,7 +36,16 @@ const MyNavbar = () => {
             <Nav.Link as={NavLink} to="/about" className="text-white">About</Nav.Link>
             <Nav.Link as={NavLink} to="/contact" className="text-white">Contact</Nav.Link>
           </Nav>
-          <div className="text-center">
+          <div className="d-flex align-items-center text-center">
+            <Button
+              as={NavLink}
+              to="/cart"
+              variant="outline-warning"
+              className="m-2"
+            >
+              <i className="fa fa-cart-shopping me-1"></i> Cart ({cartCount})
+            </Button>
+
             {user ? (
               <NavDropdown
                 title={<span className="text-white">{user.first_name || "Account"}</span>}
@@ -75,10 +84,6 @@ const MyNavbar = () => {
                 </Button>
               </>
             )}
-
-            <Button as={NavLink} to="/cart" variant="outline-warning" className="m-2">
-              <i className="fa fa-cart-shopping me-1"></i> Cart ({cartCount})
-            </Button>
           </div>
         </Navbar.Collapse>
       </Container>
