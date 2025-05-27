@@ -6,24 +6,23 @@ const UserSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
-    token: null,
   },
   reducers: {
     registerUser: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload;
     },
     loginUser: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload;
     },
     logoutUser: (state) => {
-      state.user = null;
-      state.token = null;
+      state.user = null;  
     },
+    resetUser: (state) => {
+      state.user = null;
+    }
   },
 });
 
-export const { loginUser, logoutUser, registerUser } = UserSlice.actions;
+export const { loginUser, logoutUser, registerUser, resetUser } = UserSlice.actions;
 
 export default UserSlice.reducer;
