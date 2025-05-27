@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Footer, Navbar } from "../components";
 import { toast, Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
 
 const Profile = () => {
+  const accountsData = useSelector((state) => state.user.user);
   const [profileData, setProfileData] = useState({
     first_name: "",
     last_name: "",
@@ -13,7 +15,7 @@ const Profile = () => {
 
   const [loading, setLoading] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
-  const accountsData = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
