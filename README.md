@@ -12,9 +12,12 @@ Powerhouse is a cutting-edge B2C eCommerce platform dedicated to gym enthusiasts
 
 | Page          | Validation image                                                                |
 | ------------- | ------------------------------------------------------------------------------- |
-| Home page     | ![Homepage-validation](public/readme-images/Home-validator.png) |
-| Login page    | ![Login-validation](public/readme-images/Login-validator.png)        |
-| My Orders page| ![My-orders-page-validation](public/readme-images/My-Orders-validator.png)     |
+| Home page     | ![Homepage-validation](public/readme-images/Home-validator.png)                 |
+| Login page    | ![Login-validation](public/readme-images/Login-validator.png)                   |
+| Register page | ![Register-validation](public/readme-images/Register-validator.png)             |
+| Profile page  | ![Profile-validation](public/readme-images/Profile-validator.png)               |
+| Products page | ![Products-validation](public/readme-images/Product-validator.png)              |
+| My Orders page| ![My-orders-page-validation](public/readme-images/My-Orders-validator.png)      |
 
 ### CSS Validation
 
