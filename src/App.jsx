@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { Routes, Route } from "react-router";
@@ -26,6 +26,7 @@ import { fetchCart, setCart } from "./redux/reducer/CartSlice";
 function App() {
   const productsState = useSelector((state) => state.products);
   const cartState = useSelector((state) => state.cart);
+   const token = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function App() {
         if (res && res.products) {
           console.log("Products fetched successfully:", res.products);
         } else {
-          console.error("No products found in the response");
+          console.log("No products found in the response");
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -73,6 +74,32 @@ function App() {
       getCategory();
     }
   },[dispatch]);
+
+  useEffect(() => {
+    const getCart = async () => {
+      try {
+      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/cart`, {
+        headers: { Authorization:` Bearer ${token} `},
+      });
+
+      if (!response.ok) throw new Error("Fetch failed");
+
+      const cartItems = await response.json();
+      const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0);
+      // Store in localStorage
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      localStorage.setItem("cartCount", totalQuantity);
+      dispatch(setCart({ cartItems, totalQuantity }));
+      return { cartItems, totalQuantity };
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue("Error fetching cart count");
+    }
+  }
+  if(token){
+    getCart();
+  }
+},[token]);
 
   return (
     <Routes>
