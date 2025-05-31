@@ -1,5 +1,5 @@
 # Introduction
-Powerhouse is a cutting-edge B2C eCommerce platform dedicated to gym enthusiasts, athletes, and anyone passionate about fitness. Specializing in high-quality gymwear and top-tier fitness equipment, Powerhouse offers a seamless online shopping experience tailored to individuals who demand both performance and style. From breathable, functional activewear to heavy-duty home gym gear, every product is curated to support serious training and everyday workouts alike. With user-friendly navigation and fast delivery, Powerhouse is the go-to online destination for fitness lovers looking to gear up and level up—all in one powerful platform.
+Powerhouse is a cutting-edge B2C eCommerce platform dedicated to gym enthusiasts, athletes, and anyone passionate about fitness. Specializing in high-quality gymwear and top-tier fitness equipment, Powerhouse offers a seamless online shopping experience tailored to individuals who demand both performance and style. From breathable, functional activewear to heavy-duty home gym gear, every product is curated to support serious training and everyday workouts. With user-friendly navigation and fast delivery, Powerhouse is the go-to online destination for fitness lovers looking to gear up and level up—all in one powerful platform.
 
 # Testing
 
@@ -13,6 +13,10 @@ Powerhouse is a cutting-edge B2C eCommerce platform dedicated to gym enthusiasts
 | Page          | Validation image                                                                |
 | ------------- | ------------------------------------------------------------------------------- |
 | Home page     | ![Homepage-validation](public/readme-images/Home-validator.png)                 |
+| About page    | ![Aboutpage-validation](public/readme-images/About-validator.png)               |
+| Cart page     | ![Cartpage-validation](public/readme-images/Cart-validator.png)                 |
+| Checkout page | ![Checkoutpage-validation](public/readme-images/Checkout-validator.png)         |
+| Contact page  | ![Contactpage-validation](public/readme-images/Contact-validator.png)           |
 | Login page    | ![Login-validation](public/readme-images/Login-validator.png)                   |
 | Register page | ![Register-validation](public/readme-images/Register-validator.png)             |
 | Profile page  | ![Profile-validation](public/readme-images/Profile-validator.png)               |
