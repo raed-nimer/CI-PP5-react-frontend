@@ -46,7 +46,7 @@ const MyNavbar = () => {
               variant="outline-warning"
               className="m-2"
             >
-              <i className="fa fa-cart-shopping me-1"></i> Cart ({cartCount})
+              <i className="fa fa-cart-shopping me-1"></i> Cart {cartCount>0?`(${cartCount})`:null}
             </Button>
 
             {user ? (
