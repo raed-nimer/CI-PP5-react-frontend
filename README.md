@@ -5,6 +5,24 @@ This website has been created as a learning exercise for the [Code Institute](ht
 
 Access the live app [here](https://ci-pp-5-react-frontend.vercel.app/)
 
+### Project Goals
+
+- To create a visually appealing website
+- To create a website that is easy to navigate
+- To create a website that is responsive across all devices
+- To create an interactive website
+- To create a website that is fun and easy to use
+
+# User Stories
+
+### First Time Visitor Goals
+
+### Authenticated User Goals
+
+## Agile development
+
+Link to my [GitHub Agile Project](https://github.com/users/raed-nimer/projects/4)
+
 # Testing
 
 ## Code Validation
