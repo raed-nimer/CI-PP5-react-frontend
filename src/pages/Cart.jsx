@@ -29,14 +29,20 @@ const Cart = () => {
   const addItem = async (cartItem) => {
     try {
       if(token){
-      const response = await fetch(`${baseUrl}/api/cart/add/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ product_id: cartItem.product.id }),
-      });
+      const response = await fetch(
+        `${baseUrl}/api/cart/add/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: cartItem.product.id,
+            quantity: 1,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -44,7 +50,7 @@ const Cart = () => {
       }
 
       const updatedItem = await response.json();
-
+      console.log("Updated item:", updatedItem);
       dispatch(addCart(updatedItem));
     }else{
       const guestCart = JSON.parse(localStorage.getItem("guest_cart") || "[]");
