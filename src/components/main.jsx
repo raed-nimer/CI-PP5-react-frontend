@@ -7,7 +7,7 @@ const Home = () => {
         <div className="card bg-dark text-white border-0 position-relative">
           <img
             className="card-img img-fluid"
-            src="./assets/gym-2.jpg"
+            src="./assets/gym-2.webp"
             alt="Card"
             style={{ height: "75vh", objectFit: "cover", width: "100%" }}
           />
