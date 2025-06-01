@@ -59,18 +59,14 @@ const cartSlice = createSlice({
       localStorage.setItem("cartCount", totalQuantity);
     },
     addCart: (state, action) => {
-      const product = action.payload;
-      const cartItemId = product.id;
-      const exist = state.items.find((x) => x.id === product.id);
+      const product = action.payload.product;
+      const exist = state.items.find((x) => x.product.id === product.id);
 
       if (exist) {
         exist.quantity += 1;
-      } else {
-         state.items.push({
-          id: cartItemId,
-          product: product,
-          quantity: 1,
-        });
+      }
+      else {
+         state.items.push(action.payload);
       }
 
       state.cartCount += 1;
