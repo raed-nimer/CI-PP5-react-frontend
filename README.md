@@ -36,14 +36,14 @@ Access the live app [here](https://ci-pp-5-react-frontend.vercel.app/)
 
 Link to my [GitHub Agile Project](https://github.com/users/raed-nimer/projects/4)
 
-I felt a bit more confident implementing the Agile methodology since I had experience from the last project. For this project, I decided to use Kanban and the MOSCOW prioritization method.
+I felt more confident implementing the Agile methodology since I had experience with it from the last project. I decided to use Kanban and the MOSCOW prioritization method for this project.
 
 Epics and User stories helped me organize the project better. And it can be even more efficient when used within a team. I will continue using this methodology for my future projects, considering it very helpful. I will also start exploring Jira, which is also considered a good agile and project management tool.
 
-I created four columns: Backlog, In Progress, In review and Done. I also created 9 labels:
+I created four columns: Backlog, In Progress, In review, and Done. I also created 9 labels:
 
 For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
-5 helper labels: bug, Done, Epic, enhancement, User-story
+5 helper labels: bug, Epic, documentation, enhancement, User-story
 
 # Testing
 
