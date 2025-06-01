@@ -30,11 +30,20 @@ Access the live app [here](https://ci-pp-5-react-frontend.vercel.app/)
 - As a user, I want to view my orders to track past purchases.
 - As a user, I want to filter products by category to find them easily.
 - As a user, I want to be able to view and update my profile.
- 
+
 
 ## Agile development
 
 Link to my [GitHub Agile Project](https://github.com/users/raed-nimer/projects/4)
+
+I felt a bit more confident implementing the Agile methodology since I had experience from the last project. For this project, I decided to use Kanban and the MOSCOW prioritization method.
+
+Epics and User stories helped me organize the project better. And it can be even more efficient when used within a team. I will continue using this methodology for my future projects, considering it very helpful. I will also start exploring Jira, which is also considered a good agile and project management tool.
+
+I created four columns: Backlog, In Progress, In review and Done. I also created 9 labels:
+
+For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
+5 helper labels: bug, Done, Epic, enhancement, User-story
 
 # Testing
 
