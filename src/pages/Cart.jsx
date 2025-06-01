@@ -30,18 +30,15 @@ const Cart = () => {
     try {
       if(token){
       const response = await fetch(
-        `${baseUrl}/api/cart/add/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            product_id: cartItem.product.id,
-            quantity: 1,
-          }),
-        }
+        `${baseUrl}/api/cart/update/${cartItem.id}/`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ quantity: cartItem.quantity + 1 }),
+          }
       );
 
       if (!response.ok) {
