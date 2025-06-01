@@ -33,12 +33,13 @@ const Products = () => {
       if (existingItemIndex > -1) {
         guestCart[existingItemIndex].quantity += 1;
       } else {
-        guestCart.push({ product, quantity: 1 });
+        guestCart.push({id:product.id, product, quantity: 1 });
       }
 
+      console.log('guestCart',guestCart);
       localStorage.setItem("guestCart", JSON.stringify(guestCart));
       toast.success("Item added to guest cart!");
-      dispatch(addCart(product));
+      dispatch(addCart({id:product.id, product, quantity: 1 }));
       return;
     }
 
@@ -68,10 +69,11 @@ const Products = () => {
         return;
       }
 
-      await response.json();
+      const data = await response.json();
       toast.success("Item added to cart successfully!");
+      console.log('object1',data);
       // fetchCartCount();
-      dispatch(addCart(product));
+      dispatch(addCart(data));
     } catch (error) {
       console.error("Error adding to cart:", error);
       toast.error("Something went wrong adding to cart.");
