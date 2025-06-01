@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Footer, Navbar } from "../components";
 import { toast, Toaster } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/reducer/UserSlice";
+import { useAuth } from "../context/AuthContext";
 
 const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
 
 const Profile = () => {
+  const { login } = useAuth();
   const accountsData = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const [profileData, setProfileData] = useState({
     first_name: "",
     last_name: "",
@@ -15,6 +19,7 @@ const Profile = () => {
 
   const [loading, setLoading] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,6 +35,8 @@ const Profile = () => {
 
         const data = await res.json();
         setProfileData(data);
+        login(data, accessToken);
+        dispatch(loginUser(data));
       } catch (err) {
         console.error("Error fetching profile:", err);
         toast.error("Error loading profile.");
@@ -37,7 +44,7 @@ const Profile = () => {
         setLoading(false);
       }
     };
-    if (!accountsData){
+    if (!accountsData ){
       fetchProfile();
     }else{
       setProfileData({
@@ -75,6 +82,9 @@ const Profile = () => {
       if (!res.ok) throw new Error("Profile update failed");
 
       const data = await res.json();
+      console.log('object', data);
+      login(data.user, accessToken);
+      dispatch(loginUser(data.user));
       toast.success(data.message || "Profile updated!");
     } catch (err) {
       console.error("Update error:", err);
