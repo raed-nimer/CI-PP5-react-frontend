@@ -15,9 +15,22 @@ Access the live app [here](https://ci-pp-5-react-frontend.vercel.app/)
 
 # User Stories
 
-### First Time Visitor Goals
+### User Goals
 
-### Authenticated User Goals
+- As a user, I want to view the site on any device to shop.
+- As a user, I want to create an account to save my details for future purchases.
+- As a user, I want to log in and out of my account to manage my profile securely.
+- As a user, I want to find products easily so I can easily locate what I want.
+- As a user, I want to view product details to decide whether I want to buy it.
+- As a user, I want to add products to my shopping cart to prepare for buying.
+- As a user, I want to be able to edit the quantity of products in my shopping cart to get the exact amount I need.
+- As a user, I want to delete products from my shopping cart if I change my mind.
+- As a user, I want to view my shopping cart to see the total cost of my items.
+- As a user, I want to check out securely to purchase my items safely.
+- As a user, I want to view my orders to track past purchases.
+- As a user, I want to filter products by category to find them easily.
+- As a user, I want to be able to view and update my profile.
+ 
 
 ## Agile development
 
