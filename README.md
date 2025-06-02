@@ -54,18 +54,19 @@ For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 - All pages were checked and passed through the official [W3C](https://validator.w3.org/nu/) validator.
 - Validation was done on the live app deployed on Vercel.
 
-| Page          | Validation image                                                                |
-| ------------- | ------------------------------------------------------------------------------- |
-| Home page     | ![Homepage-validation](public/readme-images/Home-validator.png)                 |
-| About page    | ![Aboutpage-validation](public/readme-images/About-validator.png)               |
-| Cart page     | ![Cartpage-validation](public/readme-images/Cart-validator.png)                 |
-| Checkout page | ![Checkoutpage-validation](public/readme-images/Checkout-validator.png)         |
-| Contact page  | ![Contactpage-validation](public/readme-images/Contact-validator.png)           |
-| Login page    | ![Login-validation](public/readme-images/Login-validator.png)                   |
-| Register page | ![Register-validation](public/readme-images/Register-validator.png)             |
-| Profile page  | ![Profile-validation](public/readme-images/Profile-validator.png)               |
-| Products page | ![Products-validation](public/readme-images/Product-validator.png)              |
-| My Orders page| ![My-orders-page-validation](public/readme-images/My-Orders-validator.png)      |
+| Page                 | Validation image                                                                |
+| -------------------- | ------------------------------------------------------------------------------- |
+| Home page            | ![Homepage-validation](public/readme-images/Home-validator.png)                 |
+| About page           | ![Aboutpage-validation](public/readme-images/About-validator.png)               |
+| Cart page            | ![Cartpage-validation](public/readme-images/Cart-validator.png)                 |
+| Checkout page        | ![Checkoutpage-validation](public/readme-images/Checkout-validator.png)         |
+| Contact page         | ![Contactpage-validation](public/readme-images/Contact-validator.png)           |
+| Login page           | ![Login-validation](public/readme-images/Login-validator.png)                   |
+| Register page        | ![Register-validation](public/readme-images/Register-validator.png)             |
+| Profile page         | ![Profile-validation](public/readme-images/Profile-validator.png)               |
+| Product Details page | ![Products-validation](public/readme-images/ProductDetails-validator.png)       |
+| Products page        | ![ProductsDetails-validation](public/readme-images/Product-validator.png)       |
+| My Orders page       | ![My-orders-page-validation](public/readme-images/My-Orders-validator.png)      |
 
 ### CSS Validation
 
