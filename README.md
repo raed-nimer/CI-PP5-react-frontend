@@ -65,7 +65,7 @@ For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 
 - The footer includes branding and copyright.
 
-![Home page](staticfiles/readme-images/home-page.png)
+![Home page](public/readme-images/home-page.png)
 
 # Testing
 
