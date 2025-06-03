@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addCart } from "../redux/reducer/CartSlice";
 
 import { Footer, Navbar } from "../components";
+import toast from "react-hot-toast";
 
 const Product = () => {
   const { id } = useParams();
@@ -16,24 +17,77 @@ const Product = () => {
 
   const dispatch = useDispatch();
 
-  const addProduct = (product) => {
-    dispatch(addCart(product));
+  const addProduct = async (product) => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      // Guest user: save to localStorage
+      let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+      const existingItemIndex = guestCart.findIndex(
+        (item) => item.product.id === product.id
+      );
+
+      if (existingItemIndex > -1) {
+        guestCart[existingItemIndex].quantity += 1;
+      } else {
+        guestCart.push({ id: product.id, product, quantity: 1 });
+      }
+
+      console.log("guestCart", guestCart);
+      localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      toast.success("Item added to guest cart!");
+      dispatch(addCart({ id: product.id, product, quantity: 1 }));
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/cart/add/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: product.id,
+            quantity: 1,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(
+          `Failed to add to cart: ${
+            errorData.error || JSON.stringify(errorData)
+          }`
+        );
+        return;
+      }
+
+      const data = await response.json();
+      toast.success("Item added to cart successfully!");
+      console.log("object1", data);
+      // fetchCartCount();
+      dispatch(addCart(data));
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Something went wrong adding to cart.");
+    }
   };
 
   useEffect(() => {
     const getProduct = async () => {
       setLoading(true);
       setLoading2(true);
-      const response = await fetch(`${import.meta.env.VITE_APP_SERVER_URL}/api/products/${id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_SERVER_URL}/api/products/${id}`
+      );
       const data = await response.json();
       setProduct(data);
       setLoading(false);
-      const response2 = await fetch(
-        `https://fakestoreapi.com/products/category/${data.category}`
-      );
-      const data2 = await response2.json();
-      setSimilarProducts(data2);
-      setLoading2(false);
     };
     getProduct();
   }, [id]);
@@ -122,7 +176,7 @@ const Product = () => {
       </>
     );
   };
-
+{/*
   const ShowSimilarProduct = () => {
     return (
       <>
@@ -145,7 +199,7 @@ const Product = () => {
                   </div>
                   {/* <ul className="list-group list-group-flush">
                     <li className="list-group-item lead">${product.price}</li>
-                  </ul> */}
+                  </ul> 
                   <div className="card-body">
                     <Link
                       to={"/product/" + item.id}
@@ -168,19 +222,20 @@ const Product = () => {
       </>
     );
   };
+*/}
   return (
     <>
       <Navbar />
       <div className="container">
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
-        <div className="row my-5 py-5">
+        {/* <div className="row my-5 py-5">
           <div className="d-none d-md-block">
             <h2 className="">You may also Like</h2>
             <Marquee pauseOnHover={true} pauseOnClick={true} speed={50}>
               {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
             </Marquee>
           </div>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </>
