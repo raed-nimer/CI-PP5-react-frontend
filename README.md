@@ -57,9 +57,11 @@ For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 
 # Features
 
+# Features
+
 ### Home page
 
-- The home page is the first page that appears when a user visits the website.
+- The Home page is the first page that appears when a user visits the website.
 
 - The page features a hero section with a promotional heading, a short tagline, and a clear call-to-action button ("Shop Now").
 
@@ -68,6 +70,102 @@ For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 - The footer includes branding and copyright.
 
 ![Home page](public/readme-images/home-page.png)
+
+### About page
+
+- The About page provides a clear and concise overview of the brand's mission and values.
+
+- It introduces Powerhouse as a modern B2C eCommerce platform for gym enthusiasts and fitness lovers.
+
+- A featured "Our Products" section showcases key product categories with images, helping users understand the offerings at a glance.
+
+![About page](public/readme-images/about-page.png)
+
+### Contact page
+
+- The contact page can be used to contact the Powerhouse team for inquiries, support, or feedback.
+
+- The contact page consists of four inputs to fill out: Name, Email, Subject, and Description.
+
+- If a user has any questions or concerns, they can go to the contact page, fill in their name, the email they wish to be contacted at, the subject of the matter, and then describe the matter in more detail in the description section for the support team.
+
+![Contact page](public/readme-images/contact-page.png)
+
+### Products page
+
+- The Products page showcases the products available on Powerhouse, including gym equipment, wearables, and fitness machines.
+
+- Users can easily filter products by categories such as Men’s Gym Wear, Gym Shoes, Gym Equipment, Fitness Gloves etc.
+
+- Each product card includes product image, product name, short description, price, and two action buttons (View Details, Add to Cart)
+
+![Products page](public/readme-images/products-page.png)
+
+### Product Details page
+
+- The Product Details page is used to view detailed information about a specific product.
+
+- It displays an image of the product, the product category, the product name, price, a short description, and interactive buttons for purchasing.
+
+- Users can choose to "Add to Cart" or directly "Go to Cart" from this page. It also includes a “You may also like” section to recommend similar items to users.
+
+![Product Details page](public/readme-images/details-page.png)
+
+### Cart page
+
+- The Cart page is used to review selected products, update quantities, and proceed to checkout.
+
+- It displays an itemized list showing the product image, name, quantity adjustment controls (plus/minus), and price per unit multiplied by quantity.
+
+- On the right side, the Order Summary includes the total number of products, shipping cost, and the overall total. A clear call-to-action button allows users to continue to the checkout process.
+
+![Cart page](public/readme-images/cart-page.png)
+
+### Checkout page
+
+- The Checkout page is used to finalize the purchase by providing billing details and selecting a payment method.
+
+- It includes a Billing Address form with fields for First Name, Last Name, Email, Address, Country, State, and Zip code.
+
+- The page offers a Payment Method section with a selectable option (e.g., Cash on Delivery).
+
+- On the right, there is an Order Summary showing the number of products, shipping cost, and total amount.
+
+- A “Place Order” button allows users to complete the transaction.
+
+![Checkout page](public/readme-images/checkout-page.png)
+
+### My Orders page
+
+- The My Orders page displays all previous orders placed by the user in an organized layout.
+
+- Each order shows the order ID, order date and time, and a list of purchased items with their images, names, quantities, and prices at the time of purchase.
+
+![My Orders page](public/readme-images/myorders-page.png)
+
+### Profile page
+
+- The profile page allows you to update your personal information, including your name, last name and email.
+
+- It provides a simple interface for managing your account details, ensuring your profile stays up-to-date.
+
+![Profile page](public/readme-images/profile-page.png)
+
+### Register page
+
+- The register page is where a first-time user can create their account.
+
+- It has a form with the first name, last name, email, and password.
+
+![register page](public/readme-images/register-page.png)
+
+### Login page
+
+- The login page is where a registered user can log in to their account.
+
+- It has a form with the email address and password fields.
+
+![Login page](public/readme-images/login-page.png)
 
 # Testing
 
