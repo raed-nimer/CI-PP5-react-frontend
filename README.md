@@ -66,9 +66,29 @@ My Kanban board:
 
 ### React Packages
 
+| Packages                                                                   | Description (copied from the web)                                                                                                                                                                                                                                              |
+| :------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [@fortawesome/fontawesome-free](https://www.npmjs.com/package/@fortawesome/fontawesome-free)                                 | The iconic font, CSS, and SVG framework                                                                                                                                                                    |
+| [@reduxjs/toolkit](https://www.npmjs.com/package/@reduxjs/toolkit)                                 | The official, opinionated, batteries-included toolset for efficient Redux development |
+| [axios](https://www.npmjs.com/package/axios)                         | Axios is a promise-based HTTP client for the browser and Node.js                               |
+| [bootstrap](https://www.npmjs.com/package/bootstrap)               | The most popular front-end framework for developing responsive, mobile-first projects on the web.                                                                                                                                                                                                          |
+| [react](https://www.npmjs.com/package/react)                             | React is a JavaScript library for building user interfaces. |
+| [react-bootstrap](https://www.npmjs.com/package/react-bootstrap)                             | Bootstrap 5 components built with React                                                                                                                                                                                 |
+| [react-dom](https://www.npmjs.com/package/react-dom) | This package serves as the entry point to the DOM and server renderers for React. It is intended to be paired with the generic React package, which is shipped as react to npm.                                                                                                                                |
+| [react-fast-marquee](https://www.npmjs.com/package/react-fast-marquee)               | A lightweight React component that utilizes the power of CSS animations to create silky smooth marquees.                                                                                                                                                                                                                            |
+| [react-hot-toast](https://www.npmjs.com/package/react-hot-toast)                       | Smoking hot React Notifications. Lightweight, customizable and beautiful by default.                                                                                              |
+| [react-loading-skeleton](https://www.npmjs.com/package/react-loading-skeleton) | Make beautiful, animated loading skeletons that automatically adapt to your app.|
+| [react-redux](https://www.npmjs.com/package/react-redux) | Official React bindings for Redux |
+| [react-router](https://www.npmjs.com/package/react-router) | Declarative routing for React |
+
 ### Other tools and programs
 
-# Features
+- [Visual Studio Code.](https://code.visualstudio.com/) Did all of my coding and synchronizing with GitHub on VS Code.
+- [Git](https://git-scm.com/) for version control.
+- [GitHub](https://github.com/) for hosting repositories.
+- [Vercel](http://vercel.com/) where the website is deployed.
+- [Grammarly](https://www.grammarly.com/) was used to double-check spelling mistakes.
+
 
 # Features
 
