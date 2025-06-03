@@ -45,6 +45,28 @@ I created four columns: Backlog, In Progress, In review, and Done. I also create
 For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 5 helper labels: bug, Epic, documentation, enhancement, User-story
 
+## Tools and technologies used
+
+### Languages and Frameworks
+
+### React Packages
+
+### Other tools and programs
+
+# Features
+
+### Home page
+
+- The home page is the first page that appears when a user visits the website.
+
+- The page features a hero section with a promotional heading, a short tagline, and a clear call-to-action button ("Shop Now").
+
+- The page contains a "Latest Products" section with product listings including images, prices, and action buttons (View Details, Add to Cart).
+
+- The footer includes branding and copyright.
+
+![Home page](staticfiles/readme-images/home-page.jpeg)
+
 # Testing
 
 ## Code Validation
