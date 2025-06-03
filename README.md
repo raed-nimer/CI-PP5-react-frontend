@@ -195,3 +195,21 @@ For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
 - No errors were found when passing it through the official [jigsaw](https://jigsaw.w3.org/css-validator/) validator.
 
 ![CSS validation](public/readme-images/css-validator.jpg)
+
+## Manual Testing
+### Devices and browsers used for testing
+
+### User Stories Testing
+
+
+| Expectation                                                                               | Solution                                                                                                                               | Image                                                                                                                                                       |
+| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| As a user, I want to be able to easily navigate the web App.                              | The navigation bar is added to the top of the page.                                                                                    | ![Navigation bar](/public/readme-images/manual-testing/Testing-navbar.png)                                                                             |
+| As a user, I want to be able to easily see the cart items.                                | All pages have a cart button in the navigation bar.                                                                                    | ![Cart button](/public/readme-images/manual-testing/Testing-cart.png)                                                                                  |
+| As a user, I want to be able to register an account.                                      | Register button is in the navbar, and available on all pages.                                                                          | ![Sign-up button](/public/readme-images/manual-testing/Testing-register.png)                                                                           |
+| As a user, I want to be able to easily log in and log out of my account.                  | Login and Logout buttons are in the navbar and available on all pages. Logout button is included inside a dropdown.                    | ![Login button](/public/readme-images/manual-testing/Testing-login.png) ![Logout button](/staticfiles/readme-images/manual-testing/Testing-logout.png) |
+| As an authenticated user, I want to be able to see my orders.                             | The My Orders button is available inside the dropdown of navbar.                                                                       | ![My Orders Button](/public/readme-images/manual-testing/testing-my-orders.png)                                                                        |
+| As an authenticated user, I want to be able to go to checkout page to complete the order. | The Go to Checkout button is available in cart page.                                                                                   | ![Go to Checkout button](/public/readme-images/manual-testing/testing-go-to-checkout.png)                                                              |
+| As a user, I want to be able to easily contact Powerhouse team.                           | The Contact button is available on the navbar on all pages.                                                                            | ![Contact button](/public/readme-images/manual-testing/testing-contact.png)                                                                            |
+| As a user, I want to be able to view and edit my profile.                                 | The current user profile button is available under the dropdown by the username. User can view and edit profile from the profile page. | ![Profile button](/public/readme-images/manual-testing/testing-profile.png)                                                                            |
+
