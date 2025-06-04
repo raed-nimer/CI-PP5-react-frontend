@@ -239,10 +239,120 @@ My Kanban board:
 | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | As a user, I want to be able to easily navigate the web App.                              | The navigation bar is added to the top of the page.                                                                                    | ![Navigation bar](public/readme-images/Testing-navbar.png)                                                                             |
 | As a user, I want to be able to easily see the cart items.                                | All pages have a cart button in the navigation bar.                                                                                    | ![Cart button](public/readme-images/Testing-cart.png)                                                                                  |
-| As a user, I want to be able to register an account.                                      | Register button is in the navbar and available on all pages.                                                                          | ![Sign-up button](public/readme-images/Testing-register.png)                                                                           |
+| As a user, I want to be able to register an account.                                      | The Register button is in the navbar and is available on all pages.                                                                          | ![Sign-up button](public/readme-images/Testing-register.png)                                                                           |
 | As a user, I want to be able to easily log in and log out of my account.                  | Login and Logout buttons are in the navbar and available on all pages. The logout button is included inside a dropdown.                    | ![Login button](public/readme-images/Testing-login.png) ![Logout button](public/readme-images/Testing-logout.png) |
 | As an authenticated user, I want to be able to see my orders.                             | The My Orders button is available inside the dropdown of the navbar.                                                                       | ![My Orders Button](public/readme-images/Testing-my-orders.png)                                                                        |
 | As an authenticated user, I want to be able to go to the checkout page to complete the order. | The Go to Checkout button is available on the cart page.                                                                                   | ![Go to Checkout button](public/readme-images/Testing-go-to-checkout.png)                                                              |
 | As a user, I want to be able to easily contact Powerhouse team.                           | The Contact button is available on the navbar on all pages.                                                                            | ![Contact button](public/readme-images/Testing-contact.png)                                                                            |
 | As a user, I want to be able to view and edit my profile.                                 | The current user profile button is available under the dropdown by the username. User can view and edit their profile from the profile page. | ![Profile button](public/readme-images/Testing-profile.png)                                                                            |
+
+### Home Page Testing.
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User clicks on the main logo in the navbar. | User is taken to the home page. | Working as expected. | ![Home Page](public/readme-images/home-page.png) |
+| User clicks on the "Home" link in the navbar. | User is taken to the home page. | Working as expected. |  |
+| User clicks on the "About" link in the navbar. | User is taken to the About page. | Working as expected. | ![About Page](public/readme-images/about-page.png) |
+| User clicks on the "Login" button in the navbar. | User is taken to the login page. | Working as expected. | ![Login Page](public/readme-images/login-page.png) |
+| User clicks on the "Register" button in the navbar. | User is taken to the Register page. | Working as expected. | ![Register Page](public/readme-images/register-page.png) |
+| When logged in, the user clicks on the "Logout" link on the profile dropdown in the navbar. | User is logged out and taken back to the login page. | Working as expected. | ![Login Page](public/readme-images/login-page.png) |
+| Logged in user clicks on the "My Orders" link on the profile dropdown in the navbar. | User is taken to the My Orders page. | Working as expected. | ![My Orders Page](public/readme-images/myorders-page.png) |
+| Logged in user clicks on the "Profile" link on the profile dropdown in the navbar. | User is taken to the Profile page. | Working as expected. | ![Profile Page](public/readme-images/profile-page.png) |
+| User clicks on the "Contact" link in the navbar. | User is taken to the contact page. | Working as expected. | ![Contact Page](public/readme-images/contact-page.png) |
+| User clicks on the "Products" link in the navbar. | User is taken to the Products page. | Working as expected. | ![Products Page](public/readme-images/products-page.png) |
+| User clicks on the "Cart" button in the navbar. | User is taken to the Cart page. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
+
+### Login Page Testing.
+
+- The Navigation bar and footer are the same as on the home page.
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User enters a valid email address and password, and clicks on the "Login" button. | Upon successful login, user is redirected to the home page. | Working as expected. | ![Login Page](public/readme-images/login-page.png) |
+
+### Register Page Testing.
+
+- The Navigation bar and footer are the same as on the home page.
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User enters a  first name, last name, email, and password and clicks the "Register" button. | The user is redirected to the home page.| Working as expected. | ![Success Message](public/readme-images/home-page.png) |
+| User clicks on the "Log in" link under the form. | User is redirected to the login page. | Working as expected. | ![Login Page](public/readme-images/register-page.png) |
+
+### Contact Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User clicks on the "Contact" link | User is redirected to the contact page. | Working as expected. | ![Contact Page](public/readme-images/contact-page.png) |
+| User fills in the form and clicks on the "Send" | User remains on the same page  and a success message is displayed | Working as expected. | ![Contact Page Success](public/readme-images/contact-page.png) |
+
+### Profile Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| Logged in User clicks on the "Profile" link on the profile dropdown in the navbar. | User is redirected to the profile page where user can see his/her profile. | Working as expected. | ![Profile Page](public/readme-images/profile-page.png) |
+| User edits any of the fields from first name and last name in the form and clicks on the "Update Profile" button. | User remains on the same page  and a success message is displayed. | Working as expected. | ![Profile Page Success](public/readme-images/profile-page.png) |
+
+### Products Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User visits the Products page. | Latest products are displayed in card format. | Working as expected. | ![Products Page](public/readme-images/products-page.png) |
+| User clicks on a category filter (e.g., "Gym Equipment"). | Products list is filtered to show only "Gym Equipment". | Working as expected. | ![Products Page](public/readme-images/products-page.png) |
+| User clicks on the "View Details" button of a product. | User is redirected to the product details page. | Working as expected. | ![Product Details Page](public/readme-images/details-page.png) |
+| User clicks on the "Add to Cart" button of a product. | Product is added to the cart, and feedback is shown in toast. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
+
+### Cart Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+<b>As a Authenticated User</b>
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User clicks on the "Cart" button in the navigation bar. | User is redirected to the cart page, and the latest products are displayed in card format. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
+| User clicks on the + button to increase quantity. | Product quantity increases by 1, and price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartplus.png) |
+| User clicks on the – button to decrease the quantity. | Product quantity decreases by 1, and Price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartminus.png) |
+| User clicks on the "Go to Checkout" button. | User is redirected to the checkout page. | Working as expected. | ![Checkout  Page](public/readme-images/checkout-page.png) |
+
+<b>As a non-authenticated User</b>
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User clicks on the "Cart" button in the navigation bar. | User is redirected to the cart page and the latest products are displayed in card format. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
+| User clicks on the + button to increase quantity. | Product quantity increases by 1, and price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartplus.png) |
+| User clicks on the – button to decrease the quantity. | Product quantity decreases by 1, and Price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartminus.png) |
+| User clicks on the "Go to Checkout" button, but is unable to check out if not logged in. | User is redirected to the login page. | Working as expected. | ![Login Page](public/readme-images/Login-page.png) |
+
+### Checkout Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User lands on the Checkout page. | The page displays a billing form, payment method, and order summary. | Working as expected. | ![Checkout Page](public/readme-images/checkout-page.png) |
+| User enters the fields for Billing address, i.e, First name, Last name, Email, Address, State, Zip, and Country, and clicks on "Place Order" button. | User is redirected to the Success Page.| Working as expected. | ![Order Success Page](public/readme-images/testing-orderplace.png) |
+
+### Product Details Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| User clicks on the "View Details" button of the product on the home page or products page. | User is redirected to the product details page. | Working as expected. | ![Product Details Page](public/readme-images/details-page.png) |
+| User clicks on the "Add to Cart" button to add that product to the cart. | Product is added to the cart, and the cart count increases.| Working as expected. | ![Product Details Page](public/readme-images/testing-detailspage.png) |
+| User clicks on "Go to Cart" button on details page. | User is redirected to the Cart page. | Working as expected. | ![Cart Page](public/readme-images/cart.png) |
+
+### My Orders Page Testing.
+
+- The navbar and footer are the same as on the home page
+
+| Action | Expected Result | Actual Result | Image |
+| --- | --- | --- | --- |
+| Logged-in user clicks on the "My Orders" link in the profile dropdown in the navbar.  | User is redirected to the My Orders page, where they can view all previously placed orders. | Working as expected. | ![My Orders Page](public/readme-images/myorders-page.png) |
 
