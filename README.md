@@ -52,14 +52,14 @@ I created 7 Epics, divided into 12 user stories. Epics and User Stories are conn
 
 | Example    | Image                                                |
 | ---------- | ---------------------------------------------------- |
-| Epic       | ![Epic](staticfiles/readme-images/Epic.png)     |
-| User story | ![User story](staticfiles/readme-images/User-story.png) |
+| Epic       | ![Epic](public/readme-images/epic-img.png)     |
+| User story | ![User story](public/readme-images/user-story-img.png) |
 
 My Kanban board:
 
 | At the start                                                | Current status                                                    |
 | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| ![Kanban board](staticfiles/readme-images/kanban-1.png) | ![Kanban board](staticfiles/readme-images/kanban-2.png) |
+| ![Kanban board](public/readme-images/kanban-1.png) | ![Kanban board](public/readme-images/kanban-2.png) |
 
 ## Tools and technologies used
 
