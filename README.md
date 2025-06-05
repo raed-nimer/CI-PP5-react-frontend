@@ -45,20 +45,21 @@ Epics and User stories helped me organize the project better. And it can be even
 I created four columns: Backlog, In Progress, In review, and Done. I also created 9 labels:
 
 For MoSCoW prioritization: Must-have, Should-have, Could-have, Won't-have
+
 5 helper labels: bug, Epic, documentation, enhancement, User-story
 
-I created 12 Epics, divided into 14 user stories. Epics and User Stories are connected with the # link on the title and in the description.
+I created 7 Epics, divided into 12 user stories. Epics and User Stories are connected with the # link on the title and in the description.
 
 | Example    | Image                                                |
 | ---------- | ---------------------------------------------------- |
-| Epic       | ![Epic](public/readme-images/epic-img.png)     |
-| User story | ![User story](public/readme-images/user-story-img.png) |
+| Epic       | ![Epic](staticfiles/readme-images/Epic.png)     |
+| User story | ![User story](staticfiles/readme-images/User-story.png) |
 
 My Kanban board:
 
 | At the start                                                | Current status                                                    |
 | ----------------------------------------------------------- | ----------------------------------------------------------------- |
-| ![Kanban board](public/readme-images/kanban-1.png) | ![Kanban board](public/readme-images/kanban-2.png) |
+| ![Kanban board](staticfiles/readme-images/kanban-1.png) | ![Kanban board](staticfiles/readme-images/kanban-2.png) |
 
 ## Tools and technologies used
 
