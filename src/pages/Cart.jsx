@@ -155,8 +155,8 @@ const Cart = () => {
                         </div>
                         <div className="col-lg-4 col-md-6">
                           <div
-                            className="d-flex mb-4"
-                            style={{ maxWidth: "300px" }}
+                            className="d-flex align-items-center justify-content-between mb-4"
+                            style={{ maxWidth: "300px", gap: "1rem" }}
                           >
                             <button
                               className="btn px-3"
@@ -164,7 +164,12 @@ const Cart = () => {
                             >
                               <i className="fa-solid fa-minus"></i>
                             </button>
-                            <p className="mx-5">{item.quantity}</p>
+                            <span
+                              className="text-center"
+                              style={{ minWidth: "30px" }}
+                            >
+                              {item.quantity}
+                            </span>
                             <button
                               className="btn px-3"
                               onClick={() => addItem(item)}
@@ -172,6 +177,7 @@ const Cart = () => {
                               <i className="fa-solid fa-plus"></i>
                             </button>
                           </div>
+
                           <p className="text-start text-md-center">
                             <strong>
                               {item?.quantity} x ${item.product?.price}
