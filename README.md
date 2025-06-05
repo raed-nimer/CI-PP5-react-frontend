@@ -347,7 +347,7 @@ My Kanban board:
 | --- | --- | --- | --- |
 | User clicks on the "View Details" button of the product on the home page or products page. | User is redirected to the product details page. | Working as expected. | ![Product Details Page](public/readme-images/details-page.png) |
 | User clicks on the "Add to Cart" button to add that product to the cart. | Product is added to the cart, and the cart count increases.| Working as expected. | ![Product Details Page](public/readme-images/testing-detailspage.png) |
-| User clicks on "Go to Cart" button on details page. | User is redirected to the Cart page. | Working as expected. | ![Cart Page](public/readme-images/cart.png) |
+| User clicks on "Go to Cart" button on details page. | User is redirected to the Cart page. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
 
 ### My Orders Page Testing.
 
