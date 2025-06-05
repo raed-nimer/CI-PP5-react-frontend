@@ -328,7 +328,7 @@ My Kanban board:
 | User clicks on the "Cart" button in the navigation bar. | User is redirected to the cart page and the latest products are displayed in card format. | Working as expected. | ![Cart Page](public/readme-images/cart-page.png) |
 | User clicks on the + button to increase quantity. | Product quantity increases by 1, and price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartplus.png) |
 | User clicks on the – button to decrease the quantity. | Product quantity decreases by 1, and Price updates accordingly. | Working as expected. | ![Cart Page](public/readme-images/testing-cartminus.png) |
-| User clicks on the "Go to Checkout" button, but is unable to check out if not logged in. | User is redirected to the login page. | Working as expected. | ![Login Page](public/readme-images/Login-page.png) |
+| User clicks on the "Go to Checkout" button, but is unable to check out if not logged in. | User is redirected to the login page. | Working as expected. | ![Login Page](public/readme-images/login-page.png) |
 
 ### Checkout Page Testing.
 
