@@ -403,3 +403,14 @@ My Kanban board:
 | --- | --- | --- | --- |
 | Logged-in user clicks on the "My Orders" link in the profile dropdown in the navbar.  | User is redirected to the My Orders page, where they can view all previously placed orders. | Working as expected. | ![My Orders Page](public/readme-images/myorders-page.png) |
 
+## Credits
+
+- The web app is inspired by [Zalando](https://www.zalando.se/)
+- [Code Institute](https://codeinstitute.net/) content and articles were really helpful in making this project a success.
+- [Slack community](https://slack.com/intl/en-ie/) for their support.
+
+### Images and Content resources
+Images and contents in this project are from the following resources:
+- https://gymconcepts.ca/pages/fitness-equipment-for-corporate-office
+- https://www.zalando.se/man-home/
+- https://unsplash.com/s/photos/gym
