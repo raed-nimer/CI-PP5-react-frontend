@@ -230,6 +230,24 @@ My Kanban board:
 
 ![CSS validation](public/readme-images/css-validator.jpg)
 
+### Lighthouse Validation
+
+- Home page Lighthouse validation.
+
+![Home page lighthouse validation](public/readme-images/homepage-LH-view.png)
+
+- Products page Lighthouse validation.
+
+![About page lighthouse validation](public/readme-images/product-page-LH-view.png)
+
+- About page Lighthouse validation.
+
+![About page lighthouse validation](public/readme-images/aboutpage-LH-view.png)
+
+- Contact page Lighthouse validation.
+
+![Contact page lighthouse validation](public/readme-images/contactpage-LH-view.png)
+
 ## Manual Testing
 ### Devices and browsers used for testing
 
