@@ -262,7 +262,7 @@ My Kanban board:
 
 - Checkout page Lighthouse validation.
 
-![Checkout page lighthouse validation](public/readme-images/checkoutpage-LH-view.png)
+![Checkout page lighthouse validation](public/readme-images/checkout-LH-view.png)
 
 - Product Details page Lighthouse validation.
 
@@ -270,7 +270,7 @@ My Kanban board:
 
 - My Orders page Lighthouse validation.
 
-![My Orders page lighthouse validation](public/readme-images/orderspage-LH-view.png)
+![My Orders page lighthouse validation](public/readme-images/myorderspage-LH-view.png)
 
 - Profile page Lighthouse validation.
 
