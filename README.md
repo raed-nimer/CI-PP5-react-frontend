@@ -238,7 +238,7 @@ My Kanban board:
 
 - Products page Lighthouse validation.
 
-![About page lighthouse validation](public/readme-images/product-page-LH-view.png)
+![Products page lighthouse validation](public/readme-images/product-page-LH-view.png)
 
 - About page Lighthouse validation.
 
@@ -247,6 +247,34 @@ My Kanban board:
 - Contact page Lighthouse validation.
 
 ![Contact page lighthouse validation](public/readme-images/contactpage-LH-view.png)
+
+- Register page Lighthouse validation.
+
+![Register page lighthouse validation](public/readme-images/registerpage-LH-view.png)
+
+- Login page Lighthouse validation.
+
+![Login page lighthouse validation](public/readme-images/loginpage-LH-view.png)
+
+- Cart page Lighthouse validation.
+
+![Cart page lighthouse validation](public/readme-images/cartpage-LH-view.png)
+
+- Checkout page Lighthouse validation.
+
+![Checkout page lighthouse validation](public/readme-images/checkoutpage-LH-view.png)
+
+- Product Details page Lighthouse validation.
+
+![Product Details page lighthouse validation](public/readme-images/productdetailspage-LH-view.png)
+
+- My Orders page Lighthouse validation.
+
+![My Orders page lighthouse validation](public/readme-images/orderspage-LH-view.png)
+
+- Profile page Lighthouse validation.
+
+![Profile page lighthouse validation](public/readme-images/profilepage-LH-view.png)
 
 ## Manual Testing
 ### Devices and browsers used for testing
