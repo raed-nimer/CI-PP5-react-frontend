@@ -3,15 +3,13 @@ import { useNavigate } from "react-router";
 import { Footer, Navbar } from "../components";
 import { Link } from "react-router";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/reducer/UserSlice";
 import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-
   const [registerData, setRegisterData] = useState({
     firstName: "",
     lastName: "",
