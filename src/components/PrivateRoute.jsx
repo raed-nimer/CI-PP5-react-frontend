@@ -1,4 +1,3 @@
-// src/components/PrivateRoute.js
 import { Navigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
