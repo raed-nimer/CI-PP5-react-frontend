@@ -1,4 +1,3 @@
-import { use, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { Routes, Route } from "react-router";
@@ -21,11 +20,10 @@ import {
 
 import { PrivateRoute } from "./components";
 import { useEffect } from "react";
-import { fetchCart, setCart } from "./redux/reducer/CartSlice";
+import { setCart } from "./redux/reducer/CartSlice";
 
 function App() {
   const productsState = useSelector((state) => state.products);
-  const cartState = useSelector((state) => state.cart);
    const token = localStorage.getItem("accessToken");
   const dispatch = useDispatch();
 
@@ -93,7 +91,8 @@ function App() {
       return { cartItems, totalQuantity };
     } catch (error) {
       console.error(error);
-      return rejectWithValue("Error fetching cart count");
+      return { cartItems: [], totalQuantity: 0 };
+
     }
   }
   if(token){
