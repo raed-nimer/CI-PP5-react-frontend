@@ -1,13 +1,6 @@
 import react, { useState, useEffect } from "react";
 
 const ShowCheckout = ({ cart, formData, handleChange, handleSubmit }) => {
-  //   let subtotal = 0;
-  //   let shipping = 30.0;
-  //   let totalItems = 0;
-  //   cart.forEach((item) => {
-  //     subtotal += parseFloat(item.product.price) * item.quantity;
-  //     totalItems += item.quantity;
-  //   });
 
   const [subtotal, setSubtotal] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
