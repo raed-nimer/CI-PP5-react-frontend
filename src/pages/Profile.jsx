@@ -19,7 +19,6 @@ const Profile = () => {
 
   const [loading, setLoading] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
-  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
