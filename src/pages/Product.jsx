@@ -11,9 +11,7 @@ import toast from "react-hot-toast";
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
-  const [similarProducts, setSimilarProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -81,7 +79,6 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       setLoading(true);
-      setLoading2(true);
       const response = await fetch(
         `${import.meta.env.VITE_APP_SERVER_URL}/api/products/${id}`
       );
