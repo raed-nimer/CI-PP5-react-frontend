@@ -231,7 +231,7 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <div className="container my-3 py-3">
+      <div className="container my-3 py-3 min-vh-100">
         <h1 className="text-center text-warning">Cart</h1>
         <hr />
         {cartItems?.length > 0 ? <ShowCart /> : <EmptyCart />}
