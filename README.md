@@ -279,6 +279,18 @@ My Kanban board:
 ## Manual Testing
 ### Devices and browsers used for testing
 
+This website was developed on a Dell Windows 10 desktop computer using Visual Studio Code. Testing was done on the following devices and browsers:
+| Device | Browser | Result |
+| --- | --- | --- |
+| Macbook Pro | Google Chrome | Works as expected |
+| Macbook Pro | Microsoft Edge | Works as expected |
+| Apple Xs Max | Safari | Works as expected |
+| Apple Xs Max | Google Chrome | Works as expected |
+| Apple iPhone 13 | Safari | Works as expected |
+| Apple iPad 10th generation | Safari | Works as expected |
+| Apple iPhone 14 | Safari | Works as expected |
+| Apple iPad Air | Safari | Works as expected |
+
 ### User Stories Testing
 
 
