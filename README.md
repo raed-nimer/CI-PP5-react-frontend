@@ -230,6 +230,12 @@ My Kanban board:
 
 ![CSS validation](public/readme-images/css-validator.jpg)
 
+### JSX Validation (ESLint)
+
+- All found errors were removed when running the ESLint command:
+
+![ESLint validation](public/readme-images/eslint-validator.png)
+
 ### Lighthouse Validation
 
 - Home page Lighthouse validation.
