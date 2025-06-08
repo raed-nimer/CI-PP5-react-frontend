@@ -5,7 +5,7 @@ Powerhouse is a cutting-edge B2C eCommerce platform dedicated to gym enthusiasts
 
 This website has been created as a learning exercise for the [Code Institute](https://codeinstitute.net/) fifth portfolio project.
 
-Access the live app [here](https://ci-pp-5-react-frontend.vercel.app/)
+Access the live app [here](https://ci-pp5-react-frontend.onrender.com/)
 
 ### Project Goals
 
@@ -87,7 +87,7 @@ My Kanban board:
 - [Visual Studio Code.](https://code.visualstudio.com/) Did all of my coding and synchronizing with GitHub on VS Code.
 - [Git](https://git-scm.com/) for version control.
 - [GitHub](https://github.com/) for hosting repositories.
-- [Vercel](http://vercel.com/) where the website is deployed.
+- [Render](https://render.com/) where the website is deployed.
 - [Grammarly](https://www.grammarly.com/) was used to double-check spelling mistakes.
 
 
@@ -208,7 +208,7 @@ My Kanban board:
 ### HTML Validation
 
 - All pages were checked and passed through the official [W3C](https://validator.w3.org/nu/) validator.
-- Validation was done on the live app deployed on Vercel.
+- Validation was done on the live app deployed on Render.
 
 | Page                 | Validation image                                                                |
 | -------------------- | ------------------------------------------------------------------------------- |
@@ -420,6 +420,23 @@ This website was developed on a Dell Windows 10 desktop computer using Visual St
 | Action | Expected Result | Actual Result | Image |
 | --- | --- | --- | --- |
 | Logged-in user clicks on the "My Orders" link in the profile dropdown in the navbar.  | User is redirected to the My Orders page, where they can view all previously placed orders. | Working as expected. | ![My Orders Page](public/readme-images/myorders-page.png) |
+
+# Deployment
+
+## Deployment with Render
+
+Follow these steps to deploy your React application using [Render](https://render.com/):
+
+1. Push your code to GitHub
+2. Click on "New" → "Static Site".
+3. Connect your GitHub or GitLab account and authorize Render.
+4. Select your repository from the list.
+5. Fill in the configuration form:
+   - Name: Choose a unique name for your app.
+   - Branch: Select main (or your working branch).
+   - Build Command: `npm run build`
+6. Click "Create Static Site" to start the deployment process.
+
 
 ## Credits
 
